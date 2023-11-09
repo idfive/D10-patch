@@ -1,22 +1,18 @@
-diff --git a/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php b/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
-index 0aec98069c..0ec5dae4f9 100644
---- a/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
-+++ b/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
-@@ -252,7 +252,12 @@ public function updateLink(array $new_definition_values, $persist) {
-    // Filter the list of updates to only those that are allowed.
-    $overrides = array_intersect_key($new_definition_values, $this->overrideAllowed);
-    // Update the definition.
-    $this->pluginDefinition = $overrides + $this->getPluginDefinition();
-    if ($persist) {
+diff --git a/docroot/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php b/docroot/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
+index 1b8b141afb..b920f1a53a 100644
+--- a/docroot/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
++++ b/docroot/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
+@@ -257,7 +257,12 @@ public function updateLink(array $new_definition_values, $persist) {
+     if ($persist) {
        $entity = $this->getEntity();
        foreach ($overrides as $key => $value) {
 -        $entity->{$key}->value = $value;
 +        if (!isset($entity->{$key})) {
 +          $entity->{$key} = new \stdClass();
-+        }
-+        if (isset($entity->{$key}->value)) {
++          }
++          if (isset($entity->{$key}->value)) {
 +          $entity->{$key}->value = $value;
-+        }
++          }
        }
        $entity->save();
      }
