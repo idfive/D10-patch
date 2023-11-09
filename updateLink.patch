@@ -2,8 +2,12 @@ diff --git a/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php 
 index 0aec98069c..0ec5dae4f9 100644
 --- a/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
 +++ b/core/modules/menu_link_content/src/Plugin/Menu/MenuLinkContent.php
-@@ -260,7 +260,12 @@ public function updateLink(array $new_definition_values, $persist) {
-     if ($persist) {
+@@ -252,7 +252,12 @@ public function updateLink(array $new_definition_values, $persist) {
+    // Filter the list of updates to only those that are allowed.
+    $overrides = array_intersect_key($new_definition_values, $this->overrideAllowed);
+    // Update the definition.
+    $this->pluginDefinition = $overrides + $this->getPluginDefinition();
+    if ($persist) {
        $entity = $this->getEntity();
        foreach ($overrides as $key => $value) {
 -        $entity->{$key}->value = $value;
